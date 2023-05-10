@@ -1,0 +1,47 @@
+# Create a Company object
+company = Company("B&M company", "123 Dubai", "0508877", "B&M1company@motors.com")
+
+# Create a Manager object
+manager = Manager("John", "Doe", 35, "1988-01-01", "MGR123", "Accounting", JobTitle.Manager, 5000, "ABCD1234", "john@abcmotors.com", "2022-01-01", [])
+
+# Create a Salesperson object
+salesperson = Salesperson("Jane", "Smith", 25, "1998-02-02", "SP123", "IT", JobTitle.Salesperson, 2500, "WXYZ5678", manager)
+
+# Create a Car object
+car = Car("Jazz", "CAR123", 25000, Type.Sedan, 60, "Blue", 180)
+
+# Create a Sale object
+sale = Sale(car, 28000)
+
+# Add the manager and salesperson to the company
+company.add_employee(manager)
+company.add_employee(salesperson)
+
+# Add the sale to the salesperson's sales list
+salesperson.add_sale(sale)
+
+# Test the getter methods
+print(company.get_companyName())  # Output: ABC Motors
+print(manager.get_firstName())  # Output: John
+print(salesperson.get_lastName())  # Output: Smith
+print(car.get_color())  # Output: Blue
+
+# Test the calculate_salary method
+manager_salary = manager.calculate_salary()
+salesperson_salary = salesperson.calculate_salary()
+print(manager_salary)  # Output: 0.0 (No salespersons under the manager)
+print(salesperson_salary)  # Output: 1820.0 (Commission based on the sale)
+
+# Test the setter methods
+company.set_address("456 Ajman")
+manager.set_salary(24000)
+salesperson.set_supervisor(None)
+car.set_maxSpeed(200)
+
+# Test the remove_employee method
+company.remove_employee(salesperson)
+print(len(company.employees))  # Output: 1 (Only the manager remains)
+
+# Test the calculate_commission method
+commission = sale.calculate_commission()
+print(commission)  # Output: 1300.0 (Commission based on the sale profit)
