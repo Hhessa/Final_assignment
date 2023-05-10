@@ -1,0 +1,28 @@
+ def delete_employee(self):
+        try:
+            employee_id = self.employee_idNumber_entry.get()
+
+            if not self.employee_details:
+                # Check if there are any employees to delete
+                messagebox.showerror("Error", "No employees to delete.")
+                return
+            # Test case: Deleting an employee with ID '123'
+            if employee_id == "123":
+                # Test case failed
+                raise ValueError("Test case failed: Deletion of employee with ID '123' not allowed.")
+
+            # Check if the employee ID exists
+            for employee in self.employee_details:
+                if employee['id'] == employee_id:
+                    # Delete the employee
+                    self.employee_details.remove(employee)
+                    messagebox.showinfo("Success", "Employee deleted successfully.")
+                    # Save the updated employee details
+                    self.save_employee_details()
+                    return
+
+            # If the loop completes without returning, the employee ID does not exist
+            messagebox.showerror("Error", "Employee with the given ID does not exist.")
+        except Exception as e:
+            # Handle any exceptions that occur during the deletion process
+            messagebox.showerror("Error", f"Failed to delete employee: {str(e)}")
