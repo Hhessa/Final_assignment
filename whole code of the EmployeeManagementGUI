@@ -1,0 +1,242 @@
+import pickle  # Importing the pickle module
+import tkinter as tk  # Importing the tkinter module for GUI development
+from tkinter import messagebox  # Importing the messagebox module from tkinter
+
+
+class EmployeeManagementGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Employee Management System")  # Set the title of the root window to "Employee Management System"
+        self.employee_details = []  # Initialize an empty list to store employee details
+
+        # Create employee details frame
+        self.employee_frame = tk.LabelFrame(self.root, text="Employee Details")  # Create a labeled frame for employee details
+        self.employee_frame.pack(padx=10, pady=10)  # Pack and display the employee frame with padding
+
+        # Employee ID label and entry
+        self.employee_idNumber_label = tk.Label(self.employee_frame, text="Employee ID:")  # Create a label for the employee ID
+        self.employee_idNumber_label.grid(row=0, column=0)  # Place the label in the employee frame at row 0, column 0
+        self.employee_idNumber_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the employee ID
+        self.employee_idNumber_entry.grid(row=0, column=1)  # Place the entry widget in the employee frame at row 0, column 1
+
+        # Employee first Name label and entry
+        self.employee_firstName_label = tk.Label(self.employee_frame, text="First Name:")  # Create a label for the first name
+        self.employee_firstName_label.grid(row=1, column=0)  # Place the label in the employee frame at row 1, column 0
+        self.employee_firstName_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the first name
+        self.employee_firstName_entry.grid(row=1, column=1)  # Place the entry widget in the employee frame at row 1, column 1
+
+        # Employee last Name label and entry
+        self.employee_lastName_label = tk.Label(self.employee_frame, text="Last Name:")  # Create a label for the last name
+        self.employee_lastName_label.grid(row=1, column=2)  # Place the label in the employee frame at row 1, column 2
+        self.employee_lastName_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the last name
+        self.employee_lastName_entry.grid(row=1, column=3)  # Place the entry widget in the employee frame at row 1, column 3
+
+        # Employee Age label and entry
+        self.employee_age_label = tk.Label(self.employee_frame, text="Age:")  # Create a label for the age
+        self.employee_age_label.grid(row=2, column=0)  # Place the label in the employee frame at row 2, column 0
+        self.employee_age_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the age
+        self.employee_age_entry.grid(row=2, column=1)  # Place the entry widget in the employee frame at row 2, column 1
+
+        # Employee date Of Birth label and entry
+        self.employee_dateOfBirth_label = tk.Label(self.employee_frame, text="Date Of Birth:")  # Create a label for the date of birth
+        self.employee_dateOfBirth_label.grid(row=2, column=2)  # Place the label in the employee frame at row 2, column 2
+        self.employee_dateOfBirth_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the date of birth
+        self.employee_dateOfBirth_entry.grid(row=2, column=3)  # Place the entry widget in the employee frame at row 2, column 3
+
+        # Employee department label and entry
+        self.employee_department_label = tk.Label(self.employee_frame, text="Department:")  # Create a label for the department
+        self.employee_department_label.grid(row=4, column=0)  # Place the label in the employee frame at row 4, column 0
+        self.employee_department_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the department
+        self.employee_department_entry.grid(row=4, column=1)  # Place the entry widget in the employee frame at row 4, column 1
+
+        # Employee job Title label and entry
+        self.employee_jobTitle_label = tk.Label(self.employee_frame, text="Job Title:")  # Create a label for the job title
+        self.employee_jobTitle_label.grid(row=4, column=2)  # Place the label in the employee frame at row 4, column 2
+        self.employee_jobTitle_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the job title
+        self.employee_jobTitle_entry.grid(row=4, column=3)  # Place the entry widget in the employee frame at row 4, column 3
+
+        # Employee salary label and entry
+        self.employee_salary_label = tk.Label(self.employee_frame, text="Salary:")  # Create a label for the salary
+        self.employee_salary_label.grid(row=6, column=0)  # Place the label in the employee frame at row 6, column 0
+        self.employee_salary_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the salary
+        self.employee_salary_entry.grid(row=6, column=1)  # Place the entry widget in the employee frame at row 6, column 1
+
+        # Employee passport details label and entry
+        self.employee_passportDetails_label = tk.Label(self.employee_frame, text="Passport Details:")  # Create a label for the passport details
+        self.employee_passportDetails_label.grid(row=7, column=0)  # Place the label in the employee frame at row 7, column 0
+        self.employee_passportDetails_entry = tk.Entry(self.employee_frame)  # Create an entry widget for the passport details
+        self.employee_passportDetails_entry.grid(row=7, column=1)  # Place the entry widget in the employee frame at row 7, column 1
+
+        # Create buttons frame
+        self.buttons_frame = tk.Frame(self.root)  # Create a frame to hold the buttons
+        self.buttons_frame.pack(padx=10, pady=10)  # Place the buttons frame in the root window with padding
+
+        # Add Employee button
+        self.add_button = tk.Button(self.buttons_frame, text="Add Employee", command=self.add_employee)  # Create a button widget for adding an employee
+        self.add_button.pack(side=tk.LEFT, padx=5)  # Place the add button in the buttons frame on the left side with padding
+
+        # Delete Employee button
+        self.delete_button = tk.Button(self.buttons_frame, text="Delete Employee", command=self.delete_employee)  # Create a button widget for deleting an employee
+        self.delete_button.pack(side=tk.LEFT, padx=5)  # Place the delete button in the buttons frame on the left side with padding
+
+        # Modify Employee button
+        self.modify_button = tk.Button(self.buttons_frame, text="Modify Employee", command=self.modify_employee)  # Create a button widget for modifying an employee
+        self.modify_button.pack(side=tk.LEFT, padx=5)  # Place the modify button in the buttons frame on the left side with padding
+
+        # Display Employee Details button
+        self.display_button = tk.Button(self.buttons_frame, text="Display Employee Details", command=self.display_employee_details)  # Create a button widget for displaying employee details
+        self.display_button.pack(side=tk.LEFT, padx=5)  # Place the display button in the buttons frame on the left side with padding
+
+    def save_employee_details(self):
+        with open('employee_details.pickle', 'wb') as file:  # Open a file in write binary mode to save employee details
+            pickle.dump(self.employee_details, file)  # Dump the employee_details list into the file using pickle
+        messagebox.showinfo("Success","Employee details saved successfully.")  # Show a success message box indicating that the details were saved
+
+    def load_employee_details(self):
+        try:
+            with open('employee_details.pickle','rb') as file:  # Open a file in read binary mode to load employee details
+                self.employee_details = pickle.load(file)  # Load the employee details from the file using pickle and assign them to self.employee_details
+
+            messagebox.showinfo("Success","Employee details loaded successfully.")  # Show a success message box indicating that the details were loaded
+        except FileNotFoundError:
+            messagebox.showerror("Error","Employee details file not found.")  # Show an error message box indicating that the file was not found
+
+    def add_employee(self):
+        try:
+            employee_id = self.employee_idNumber_entry.get()  # Retrieve the employee ID from the entry field
+            first_name = self.employee_firstName_entry.get()  # Retrieve the first name from the entry field
+            last_name = self.employee_lastName_entry.get()  # Retrieve the last name from the entry field
+            age = self.employee_age_entry.get()  # Retrieve the age from the entry field
+            dateOfBirth = self.employee_dateOfBirth_entry.get()  # Retrieve the date of birth from the entry field
+            department = self.employee_department_entry.get()  # Retrieve the department from the entry field
+            jobtitle = self.employee_jobTitle_entry.get()  # Retrieve the job title from the entry field
+            salary = self.employee_salary_entry.get()  # Retrieve the salary from the entry field
+
+
+            if not employee_id or not first_name or not last_name or not age or not dateOfBirth or not department or not jobtitle or not salary:
+                # If any of the fields is empty, show an error message box and return
+                messagebox.showerror("Error", "All fields must be filled.")
+                return
+
+            # Check if the employee ID already exists
+            for employee in self.employee_details:
+                if employee['id'] == employee_id:
+                    messagebox.showerror("Error", "Employee with the same ID already exists.")
+                    return
+
+            # Create a dictionary representing the employee
+            employee = {
+                'id': employee_id,
+                'first_name': first_name,
+                'last_name': last_name,
+                'age': age,
+                'dateOfBirth': dateOfBirth,
+                'department': department,
+                'job Title': jobtitle,
+                'salary': salary
+            }
+
+            # Add the employee to the list
+            self.employee_details.append(employee)
+
+            self.save_employee_details()  # Save the updated employee details to a file
+
+        except Exception as e:
+            messagebox.showerror("Error",f"Failed to add employee: {str(e)}")  # Show an error message box if an exception occurs
+
+        # Clear the entry fields
+        self.clear_entry_fields()
+
+
+    def delete_employee(self):
+        try:
+            employee_id = self.employee_idNumber_entry.get()
+
+            if not self.employee_details:
+                # Check if there are any employees to delete
+                messagebox.showerror("Error", "No employees to delete.")
+                return
+
+            # Check if the employee ID exists
+            for employee in self.employee_details:
+                if employee['id'] == employee_id:
+                    # Delete the employee
+                    self.employee_details.remove(employee)
+                    messagebox.showinfo("Success", "Employee deleted successfully.")
+                    # Save the updated employee details
+                    self.save_employee_details()
+                    return
+
+            # If the loop completes without returning, the employee ID does not exist
+            messagebox.showerror("Error", "Employee with the given ID does not exist.")
+        except Exception as e:
+            # Handle any exceptions that occur during the deletion process
+            messagebox.showerror("Error", f"Failed to delete employee: {str(e)}")
+
+    def modify_employee(self):
+        try:
+            employee_id = self.employee_idNumber_entry.get()
+
+            # Search for the employee with the given ID
+            for employee in self.employee_details:
+                if employee['id'] == employee_id:
+                    # Update the employee details
+                    employee['first_name'] = self.employee_firstName_entry.get()
+                    employee['last_name'] = self.employee_lastName_entry.get()
+                    employee['age'] = self.employee_age_entry.get()
+                    employee['dateOfBirth'] = self.employee_dateOfBirth_entry.get()
+                    employee['department'] = self.employee_department_entry.get()
+                    employee['jobTitle'] = self.employee_jobTitle_entry.get()
+                    employee['salary'] = self.employee_salary_entry.get()
+                    self.save_employee_details()
+                    messagebox.showinfo("Success", "Employee modified successfully.")
+                    return
+
+            # If the loop completes without returning, the employee ID does not exist
+            messagebox.showerror("Error", "Employee with the given ID does not exist.")
+        except Exception as e:
+            # Handle any exceptions that occur during the modification process
+            messagebox.showerror("Error", f"Failed to modify employee: {str(e)}")
+
+    def display_employee_details(self):
+        employee_id = self.employee_idNumber_entry.get()
+
+        # Search for the employee with the given ID
+        for employee in self.employee_details:
+            if employee['id'] == employee_id:
+                # Create a string to display the employee details
+                details = f"Employee ID: {employee['id']}\n"
+                details += f"First Name: {employee['first_name']}\n"
+                details += f"Last Name: {employee['last_name']}\n"
+                details += f"Age: {employee['age']}\n"
+                details += f"Date of birth: {employee['dateOfBirth']}\n"
+                details += f"Department: {employee['department']}\n"
+                details += f"Salary: {employee['salary']}\n"
+                messagebox.showinfo("Employee Details", details)
+
+                # Print the employee details to the console
+                print("Employee Details:")
+                print(details)
+
+                return
+
+        # If no employee is found with the given ID, display an error message
+        messagebox.showerror("Error", "Employee not found.")
+
+    def clear_entry_fields(self):
+        # Clear the entry fields by deleting the text in each entry widget
+        self.employee_firstName_entry.delete(0, tk.END)
+        self.employee_lastName_entry.delete(0, tk.END)
+        self.employee_idNumber_entry.delete(0, tk.END)
+        self.employee_age_entry.delete(0, tk.END)
+        self.employee_dateOfBirth_entry.delete(0, tk.END)
+        self.employee_department_entry.delete(0, tk.END)
+        self.employee_jobTitle_entry.delete(0, tk.END)
+        self.employee_salary_entry.delete(0, tk.END)
+        self.employee_passportDetails_entry.delete(0, tk.END)
+
+
+root = tk.Tk()
+employee_management_gui = EmployeeManagementGUI(root)
+#car_management_gui = CarManagementGUI(root)
+root.mainloop()
