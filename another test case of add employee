@@ -1,0 +1,45 @@
+    def add_employee(self):
+        try:
+            employee_id = self.employee_idNumber_entry.get()  # Retrieve the employee ID from the entry field
+            first_name = self.employee_firstName_entry.get()  # Retrieve the first name from the entry field
+            last_name = self.employee_lastName_entry.get()  # Retrieve the last name from the entry field
+            age = self.employee_age_entry.get()  # Retrieve the age from the entry field
+            dateOfBirth = self.employee_dateOfBirth_entry.get()  # Retrieve the date of birth from the entry field
+            department = self.employee_department_entry.get()  # Retrieve the department from the entry field
+            jobtitle = self.employee_jobTitle_entry.get()  # Retrieve the job title from the entry field
+            salary = self.employee_salary_entry.get()  # Retrieve the salary from the entry field
+
+            if employee_id == "123" and first_name == "John" and last_name == "Doe":
+                # Test case failed
+                raise ValueError("Test case failed: Invalid employee details.")
+
+            if not employee_id or not first_name or not last_name or not age or not dateOfBirth or not department or not jobtitle or not salary:
+                # If any of the fields is empty, show an error message box and return
+                messagebox.showerror("Error", "All fields must be filled.")
+                return
+
+            # Check if the employee ID already exists
+            for employee in self.employee_details:
+                if employee['id'] == employee_id:
+                    messagebox.showerror("Error", "Employee with the same ID already exists.")
+                    return
+
+            # Create a dictionary representing the employee
+            employee = {
+                'id': employee_id,
+                'first_name': first_name,
+                'last_name': last_name,
+                'age': age,
+                'dateOfBirth': dateOfBirth,
+                'department': department,
+                'job Title': jobtitle,
+                'salary': salary
+            }
+
+            # Add the employee to the list
+            self.employee_details.append(employee)
+
+            self.save_employee_details()  # Save the updated employee details to a file
+
+        except Exception as e:
+            messagebox.showerror("Error",f"Failed to add employee: {str(e)}")  # Show an error message box if an exception occurs
