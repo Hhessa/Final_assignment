@@ -1,0 +1,171 @@
+# Importing the Enum class from the enum module
+from enum import Enum
+
+# Defining an Enum class called JobTitle
+class JobTitle(Enum):
+    Manager = 1
+    Salesperson = 2
+
+# Defining an Enum class called Type
+class Type(Enum):
+    Hatchback = 1
+    Sedan = 2
+    SUV = 3  
+
+class Company:
+    def __init__(self, companyName, address, phoneNumber, email):
+        self.companyName = companyName  # Initialize the companyName attribute
+        self.address = address  # Initialize the address attribute
+        self.phoneNumber = phoneNumber  # Initialize the phoneNumber attribute
+        self.email = email  # Initialize the email attribute
+        self.employees = []  # Initialize the employees attribute as an empty list
+        self.car = []  # Initialize the car attribute as an empty list
+
+    def add_employee(self, employee):
+        self.employees.append(employee)  # Add the provided employee to the employees list
+
+    def remove_employee(self, employee):
+        self.employees.remove(employee)  # Remove the provided employee from the employees list
+
+    #define the setters and getters functions
+    def set_companyName(self, companyName):
+        self.companyName = companyName  # Set the companyName attribute to the provided value
+
+    def get_companyName(self):
+        return self.companyName  # Return the value of the companyName attribute
+
+    def set_address(self, address):
+        self.address = address  # Set the address attribute to the provided value
+
+    def get_address(self):
+        return self.address  # Return the value of the address attribute
+
+    def set_phoneNumber(self, phoneNumber):
+        self.phoneNumber = phoneNumber  # Set the phoneNumber attribute to the provided value
+
+    def get_phoneNumber(self):
+        return self.phoneNumber  # Return the value of the phoneNumber attribute
+
+    def set_email(self, email):
+        self.email = email  # Set the email attribute to the provided value
+
+    def get_email(self):
+        return self.email  # Return the value of the email attribute
+
+    def set_car(self, car):
+        self.car = car  # Set the car attribute to the provided value
+
+    def get_car(self):
+        return self.car  # Return the value of the car attribute
+
+class Employee:
+    def __init__(self, firstName, lastName, age, dateOfBirth, idNumber, department, jobTitle, salary, passportDetails):
+        self.firstName = firstName  # Initialize the firstName attribute
+        self.lastName = lastName  # Initialize the lastName attribute
+        self.age = age  # Initialize the age attribute
+        self.dateOfBirth = dateOfBirth  # Initialize the dateOfBirth attribute
+        self.idNumber = idNumber  # Initialize the idNumber attribute
+        self.department = department  # Initialize the department attribute
+        self.jobTitle = jobTitle  # Initialize the jobTitle attribute
+        self.salary = salary  # Initialize the salary attribute
+        self.passportDetails = passportDetails  # Initialize the passportDetails attribute
+
+    #setters and getters functions
+    def set_firstName(self, firstName):
+        self.firstName = firstName  # Set the firstName attribute to the provided value
+
+    def get_firstName(self):
+        return self.firstName  # Return the value of the firstName attribute
+
+    def set_lastName(self, lastName):
+        self.lastName = lastName  # Set the lastName attribute to the provided value
+
+    def get_lastName(self):
+        return self.lastName  # Return the value of the lastName attribute
+
+    def set_age(self, age):
+        self.age = age  # Set the age attribute to the provided value
+
+    def get_age(self):
+        return self.age  # Return the value of the age attribute
+
+    def set_dateOfBirth(self, dateOfBirth):
+        self.dateOfBirth = dateOfBirth  # Set the dateOfBirth attribute to the provided value
+
+    def get_dateOfBirth(self):
+        return self.dateOfBirth  # Return the value of the dateOfBirth attribute
+
+    def set_idNumber(self, idNumber):
+        self.idNumber = idNumber  # Set the idNumber attribute to the provided value
+
+    def get_idNumber(self):
+        return self.idNumber  # Return the value of the idNumber attribute
+
+    def set_department(self, department):
+        self.department = department  # Set the department attribute to the provided value
+
+    def get_department(self):
+        return self.department  # Return the value of the department attribute
+
+    def set_jobTitle(self, jobTitle):
+        self.jobTitle = jobTitle  # Set the jobTitle attribute to the provided value
+
+    def get_jobTitle(self):
+        return self.jobTitle  # Return the value of the jobTitle attribute
+
+    def set_salary(self, salary):
+        self.salary = salary  # Set the salary attribute to the provided value
+
+    def get_salary(self):
+        return self.salary  # Return the value of the salary attribute
+
+    def get_passportDetails(self):
+        return self.passportDetails  # Return the value of the passportDetails attribute
+
+    def set_passportDetails(self, passportDetails):
+        self.passportDetails = passportDetails  # Set the passportDetails attribute to the provided value
+
+    def calculate_salary(self):
+        return 0  # Base salary, can be overridden by subclasses
+
+class Manager(Employee):
+    def __init__(self, firstName, lastName, age, dateOfBirth, idNumber, department, JobTitle, salary, passportDetails, email, hireDate, salespersons):
+        super().__init__(firstName, lastName, age, dateOfBirth, idNumber, department, JobTitle.Manager, salary, passportDetails)
+        # Call the parent class's __init__ method to initialize inherited attributes
+        # Set the JobTitle to JobTitle.Manager for a Manager object
+        self.email = email  # Initialize the email attribute with the provided value
+        self.hireDate = hireDate  # Initialize the hireDate attribute with the provided value
+        self.salespersons = salespersons  # Initialize the salespersons attribute with the provided value
+
+    def calculate_salary(self):
+        total_salary = 0
+        for salesperson in self.salespersons:
+            total_salary += salesperson.calculate_salary()
+        # Calculate the total salary of all salespersons under the manager and apply a commission rate
+        return total_salary * 0.035
+
+
+class Salesperson(Employee):
+    def __init__(self, firstName, lastName, age, dateOfBirth, idNumber, department, JobTitle, salary, passportDetails, supervisor):
+        super().__init__(firstName, lastName, age, dateOfBirth, idNumber, department, JobTitle.Salesperson, salary, passportDetails)
+        # Call the parent class's __init__ method to initialize inherited attributes
+        # Set the JobTitle to JobTitle.Salesperson for a Salesperson object
+        self.supervisor = supervisor  # Initialize the supervisor attribute with the provided value
+        self.sales = []  # Initialize the sales attribute as an empty list
+
+    def set_supervisor(self, supervisor):
+        self.supervisor = supervisor  # Set the supervisor attribute to the provided value
+
+    def get_supervisor(self):
+        return self.supervisor  # Return the value of the supervisor attribute
+
+    def add_sale(self, sale):
+        self.sales.append(sale)  # Add the provided sale to the sales list
+
+    def calculate_salary(self):
+        total_salary = 0
+        for sale in self.sales:
+            total_salary += sale.calculate_commission()
+        # Calculate the total salary based on the commissions earned from sales
+        return total_salary * 0.065
+
